@@ -1,0 +1,21 @@
+name: lith_pred
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - setuptools
+  - wheel
+  - invoke
+  - notebook
+  - jupyter_contrib_nbextensions
+  - requests
+  - numpy
+  - matplotlib
+  - seaborn
+  - papermill
+  - pandas
+  - pip
+  - pip:
+    - -e .
+    - sweetviz
