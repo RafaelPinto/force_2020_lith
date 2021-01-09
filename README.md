@@ -1,5 +1,5 @@
 # 2020 FORCE Machine Learning competition: Lithology prediction
-The purpose of this competition was first to release high quality well log data for use in research, and second to gather models that predict lithology based on well log measurements. It ran from August to November 2020.
+The purpose of this competition was first to release high quality well log data for use in research, and second to gather models that predict lithology based on well log measurements. It ran from August to October 2020.
 
 
 # Context
@@ -11,7 +11,7 @@ As a result, there is an increased need to perform this process in an automated 
 
 
 # Environmnet set up
-I'm using conda for managing packages and environments. Once you have cloned this repo you'll need to create a conda environment with:
+I'm using conda for managing packages and environments. Once you have [cloned this repo](https://github.com/RafaelPinto/force_2020_lith.git) you'll need to create a conda environment with:
 
 `conda create --name lith_pred -c conda-forge python=3.8 invoke`
 
