@@ -1,6 +1,3 @@
-import os
-from sys import platform
-
 from invoke import task
 
 # Set
