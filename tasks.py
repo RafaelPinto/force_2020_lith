@@ -17,6 +17,8 @@ def env_set_jupyter(c):
         f"ipython kernel install --name {ENV_NAME} --display-name {ENV_NAME} --sys-prefix")
     print('Adding nbextensions')
     c.run("jupyter nbextensions_configurator enable --user")
+    print('Enable ipywidgets')
+    c.run("jupyter nbextension enable --py widgetsnbextension")
     print('Done!')
 
 

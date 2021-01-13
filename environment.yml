@@ -19,4 +19,5 @@ dependencies:
   - pip:
     - -e .
     - sweetviz
+    - ipywidgets
     - gdown
