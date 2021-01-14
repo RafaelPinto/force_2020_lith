@@ -6,8 +6,8 @@ ENV_NAME = 'lith_pred'
 # Environment
 
 # Run this first
-# conda env create --name springboard -c conda-forge python=3.8 invoke
-# conda activate hcad_pred
+# conda env create --name lith_pred -c conda-forge python=3.8 invoke
+# conda activate lith_pred
 
 
 @task
@@ -36,3 +36,9 @@ def env_update(c):
 @task
 def env_remove(c):
     c.run(f"conda remove --name {ENV_NAME} --all")
+
+
+# Data
+@task
+def download_data(c):
+    c.run("python src/data/download_data.py")
