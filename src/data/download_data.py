@@ -1,3 +1,5 @@
+import pandas as pd
+
 import gdown
 
 from src.definitions import ROOT_DIR
@@ -31,3 +33,12 @@ for file_name, file_id in file_ids.items():
     output = output_root / file_name
 
     gdown.download(url, str(output))
+
+
+# Download well meta data from Norwegian Petroleum Directorate (NPD)
+well_meta_url = 'https://factpages.npd.no/ReportServer_npdpublic?/FactPages/TableView/wellbore_exploration_all&rs:Command=Render&rc:Toolbar=false&rc:Parameters=f&rs:Format=CSV&Top100=false&IpAddress=not_used&CultureCode=en'
+
+well_meta = pd.read_csv(well_meta_url)
+
+well_meta_path = output_root / 'well_meta_npd.csv'
+well_meta.to_csv(well_meta_path, index=False)
