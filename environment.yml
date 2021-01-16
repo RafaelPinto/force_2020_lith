@@ -1,6 +1,7 @@
 name: lith_pred
 channels:
   - conda-forge
+  - plotly
   - defaults
 dependencies:
   - python=3.8
@@ -15,6 +16,7 @@ dependencies:
   - seaborn
   - papermill
   - pandas
+  - plotly=4.14.3
   - pip
   - pip:
     - -e .
