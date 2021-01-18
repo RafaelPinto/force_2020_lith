@@ -5,18 +5,53 @@ import gdown
 from src.definitions import ROOT_DIR
 
 
-output_root = ROOT_DIR / 'data/external'
+OUTPUT_ROOT = ROOT_DIR / 'data/external'
+
+if not OUTPUT_ROOT.is_dir():
+    OUTPUT_ROOT.mkdir(parents=True)
+
+
+def download_from_google_drive(file_ids, output_root=None, redownload=False):
+    """
+    Download the seleced files from Google Drive using their Google Drive IDs.
+
+    Parameters
+    ----------
+    file_ids : dict
+        Dictionary with file name with extension as key and file's Google
+        drive ID as value.
+    output_root: path like
+        Directory to store the downloaded data.
+    redownload: bool
+        Download the file even if it already exists.
+
+    """
+    if output_root is None:
+        output_root = OUTPUT_ROOT
+
+    url_root = "https://drive.google.com/uc?id="
+
+    for file_name, file_id in file_ids.items():
+        output = output_root / file_name
+
+        # Skip file if already downloaded
+        if output.exists():
+            if not redownload:
+                continue
+
+        url = url_root + file_id
+
+        gdown.download(url, str(output))
+
+    return
 
 
 def download_competition_files():
     '''
-    Download the seleced files from Google Drive using their Google Drive IDs.
+    Download the competition files from Google Drive using their Google
+    Drive IDs.
+
     '''
-    if not output_root.is_dir():
-        output_root.mkdir(parents=True)
-
-    url_root = "https://drive.google.com/uc?id="
-
     file_ids = {
         # "Well log competion rules and description": "1Q_Z7xDREeTGqXvdmFuZ89e6PXN4I1miPLq1I17MTkds",
         "Confusion matrix all submitters.xlsx": "1f4DZPmwJFPG7hScEX_S2RbLdOF4IOH_U",
@@ -30,14 +65,12 @@ def download_competition_files():
         "penalty_matrix.npy": "1eCH2LBFywpgopOcHG0RLGXEtBKb7LHhM",
         "starter_notebook.ipynb": "1uYG70pz2hh2nmgo6f3Hdg_IxQmyRGWEb",
         "Well logs abbreviation description.xlsx": "1EOxhQicZC5X-tbPwojvWxsHjst7IcIsy",
+        "olawale_hidden_test_pred.csv": "16w0E1QPIdCDdoJRgAXQzqSPJ5eywQyMl",
     }
 
-    for file_name, file_id in file_ids.items():
-        url = url_root + file_id
+    download_from_google_drive(file_ids)
 
-        output = output_root / file_name
-
-        gdown.download(url, str(output))
+    return
 
 
 def download_well_meta():
@@ -48,7 +81,7 @@ def download_well_meta():
 
     well_meta = pd.read_csv(well_meta_url)
 
-    well_meta_path = output_root / 'well_meta_npd.csv'
+    well_meta_path = OUTPUT_ROOT / 'well_meta_npd.csv'
     well_meta.to_csv(well_meta_path, index=False)
 
 
