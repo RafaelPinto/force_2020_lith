@@ -47,11 +47,11 @@ def download_from_google_drive(file_ids, output_root=None, redownload=False):
 
 
 def download_competition_files():
-    '''
+    """
     Download the competition files from Google Drive using their Google
     Drive IDs.
 
-    '''
+    """
     file_ids = {
         # "Well log competion rules and description": "1Q_Z7xDREeTGqXvdmFuZ89e6PXN4I1miPLq1I17MTkds",
         "Confusion matrix all submitters.xlsx": "1f4DZPmwJFPG7hScEX_S2RbLdOF4IOH_U",
@@ -74,9 +74,10 @@ def download_competition_files():
 
 
 def download_well_meta():
-    '''
+    """
     Download well meta data from Norwegian Petroleum Directorate (NPD).
-    '''
+
+    """
     well_meta_url = 'https://factpages.npd.no/ReportServer_npdpublic?/FactPages/TableView/wellbore_exploration_all&rs:Command=Render&rc:Toolbar=false&rc:Parameters=f&rs:Format=CSV&Top100=false&IpAddress=not_used&CultureCode=en'
 
     well_meta = pd.read_csv(well_meta_url)
@@ -85,7 +86,22 @@ def download_well_meta():
     well_meta.to_csv(well_meta_path, index=False)
 
 
+def download_open_test_labels():
+    """
+    Download the open test set true labels.
+
+    """
+    url = 'https://github.com/bolgebrygg/Force-2020-Machine-Learning-competition/raw/master/lithology_competition/data/leaderboard_test_target.csv'
+
+    test_y_true = pd.read_csv(url, sep=';')
+
+    test_y_true_path = OUTPUT_ROOT / 'open_test_y_true.csv'
+    test_y_true.to_csv(test_y_true_path, index=False)
+
+
 if __name__ == "__main__":
     download_competition_files()
 
     download_well_meta()
+
+    download_open_test_labels()
