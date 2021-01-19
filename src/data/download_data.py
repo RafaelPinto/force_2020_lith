@@ -66,6 +66,7 @@ def download_competition_files():
         "starter_notebook.ipynb": "1uYG70pz2hh2nmgo6f3Hdg_IxQmyRGWEb",
         "Well logs abbreviation description.xlsx": "1EOxhQicZC5X-tbPwojvWxsHjst7IcIsy",
         "olawale_hidden_test_pred.csv": "16w0E1QPIdCDdoJRgAXQzqSPJ5eywQyMl",
+        "olawale_open_test_pred.csv": "1--4oofS0p0tvLriRLs1UhkkbxaKdxlBO",
     }
 
     download_from_google_drive(file_ids)
