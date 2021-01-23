@@ -2,26 +2,6 @@ import numpy as np
 import pandas as pd
 
 
-def drop_columns(df, cols):
-    """
-    Drop the data frame columns.
-
-    Parameters
-    ----------
-    df : pandas.DataFrame
-        Dataframe with columns to be dropped.
-    cols : list of str
-        List with column names.
-
-    Returns
-    -------
-    pandas.DataFrame
-        Dataframe with columns dropped.
-
-    """
-    return df.drop(cols, axis=1)
-
-
 def replace_nan_inf(df, value=None):
     """
     Replace missing and infinity values.
