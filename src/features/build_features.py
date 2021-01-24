@@ -182,7 +182,7 @@ def shift_concat_gradient(df, depth_col, well_col, periods=1, fill_value=None):
     """
     # TODO 'Consider filling missing values created here with DataFrame.fillna'
 
-    # Gradient should only be applied to float columns
+    # Gradient should only be applied to float columns, skip category columns
     float_columns = df.select_dtypes(include='float').columns
 
     # Don't shift depth
@@ -211,3 +211,69 @@ def shift_concat_gradient(df, depth_col, well_col, periods=1, fill_value=None):
         df_aug_groups.append(group_aug)
 
     return pd.concat(df_aug_groups)
+
+
+def build_encoding_map(series):
+    """
+    Build dictionary with the mapping of series unique values to encoded
+    values.
+
+    Parameters
+    ----------
+    series : pandas.Series
+        Series with categories to be encoded.
+
+    Returns
+    -------
+    mapping : dict
+        Dictionary mapping unique categories in series to encoded values.
+
+    See Also
+    --------
+    label_encode_columns : Label encode a dataframe categorical columns.
+
+    """
+    unique_values = series.unique()
+
+    mapping = {original: encoded
+               for encoded, original in enumerate(unique_values)
+               if original is not np.nan}
+
+    return mapping
+
+
+def label_encode_columns(df, cat_cols, mappings):
+    """
+    Label encode a dataframe categorical columns.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe with columns to be encoded.
+    cat_cols: list of str
+        Column names to be encoded.
+    mappings: dict of dict
+        Dictionary containing a key-value mapping for each column to be
+        encoded.
+
+    Returns
+    -------
+    df : pandas.DataFrame
+        Dataframe with the encoded columns added and the `cat_cols` removed.
+
+    See Also
+    --------
+    build_encoding_map : Build a series encoding mapping.
+
+    """
+    df = df.copy()
+    for col in cat_cols:
+        new_col = f'{col}_encoded'
+
+        df[new_col] = df[col].map(mappings[col])
+
+        df[new_col] = df[new_col].astype('category')
+
+        df.drop(col, axis=1, inplace=True)
+
+    return df
