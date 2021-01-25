@@ -272,8 +272,6 @@ def label_encode_columns(df, cat_cols, mappings):
 
         df[new_col] = df[col].map(mappings[col])
 
-        df[new_col] = df[new_col].astype('category')
-
         df.drop(col, axis=1, inplace=True)
 
     return df
