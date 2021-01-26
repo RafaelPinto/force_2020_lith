@@ -260,6 +260,8 @@ def label_encode_columns(df, cat_cols, mappings):
     -------
     df : pandas.DataFrame
         Dataframe with the encoded columns added and the `cat_cols` removed.
+    encoded_col_names: list of str
+        Encoded column names.
 
     See Also
     --------
@@ -267,11 +269,14 @@ def label_encode_columns(df, cat_cols, mappings):
 
     """
     df = df.copy()
+
+    encoded_col_names = []
     for col in cat_cols:
         new_col = f'{col}_encoded'
+        encoded_col_names.append(new_col)
 
         df[new_col] = df[col].map(mappings[col])
 
         df.drop(col, axis=1, inplace=True)
 
-    return df
+    return df, encoded_col_names
