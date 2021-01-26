@@ -133,7 +133,12 @@ def gradient(df, depth_col):
     return df_diff.divide(depth_diff, axis=0)
 
 
-def shift_concat_gradient(df, depth_col, well_col, periods=1, fill_value=None):
+def shift_concat_gradient(df,
+                          depth_col,
+                          well_col,
+                          cat_cols,
+                          periods=1,
+                          fill_value=None):
     """
     Augment features using `shif_concat` and `gradient`.
 
@@ -145,6 +150,9 @@ def shift_concat_gradient(df, depth_col, well_col, periods=1, fill_value=None):
         Dataframe column name to be used as depth reference.
     well_col : str
         Dataframe column name to be used as well reference.
+    cat_cols: list of str
+        Encoded column names. The gradient calculation is not applied to these
+        columns.
     periods : int
         Number of periods to shift. Should be positive.
     fill_value : object, optional
@@ -182,8 +190,9 @@ def shift_concat_gradient(df, depth_col, well_col, periods=1, fill_value=None):
     """
     # TODO 'Consider filling missing values created here with DataFrame.fillna'
 
-    # Gradient should only be applied to float columns, skip category columns
-    float_columns = df.select_dtypes(include='float').columns
+    # Columns to apply gradient operation
+    cat_cols.append(well_col)
+    gradient_cols = [col for col in df.columns if col not in cat_cols]
 
     # Don't shift depth
     depth = df.loc[:, depth_col]
@@ -202,7 +211,7 @@ def shift_concat_gradient(df, depth_col, well_col, periods=1, fill_value=None):
         group_shift[well_col] = name
         group_shift[depth_col] = depth
 
-        group_gradient = group.loc[:, float_columns]
+        group_gradient = group.loc[:, gradient_cols]
 
         group_gradient = gradient(group_gradient, depth_col)
 
