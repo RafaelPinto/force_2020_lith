@@ -35,3 +35,7 @@ ORDINAL_TO_KEYS = {value: key for key, value in  KEYS_TO_ORDINAL.items()}
 ORDINAL_TO_LITHOLOGY = {}
 for ordinal_key, key in ORDINAL_TO_KEYS.items():
     ORDINAL_TO_LITHOLOGY[ordinal_key] = KEYS_TO_LITHOLOGY[key]
+
+LITHOLOGY_TO_ORDINAL = {}
+for ordinal_key, lithology in ORDINAL_TO_LITHOLOGY.items():
+    LITHOLOGY_TO_ORDINAL[lithology] = ordinal_key
