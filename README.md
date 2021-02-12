@@ -26,9 +26,14 @@ With the environment activated, you will be able to run the `invoke` commands pr
 3. `invoke env-freeze`: Updates the environment_to_freeze.yml file. This file contains all of the environment dependencies.
 4. [Optional] `invoke env-remove`: If you need to start from scratch. This will remove the `hcad_env`.
 
+
 # Downloading the data
 `invoke download-data`
 
 > **_NOTE:_**  Although the actual function name is `download_data`, to run in the terminal, we must replace the underscore (`_`) with a dash (`-`). This applies to all invoke functions.
 
-This command will run script `src/data/download_lith_data.py`, which will fecth the competition CSV files available on the [shared Google Drive](https://drive.google.com/drive/folders/1GIkjq4fwgwbiqVQxYwoJnOJWVobZ91pL).
+This command will run script `src/data/download_lith_data.py`, which will fecth the competition CSV files available on the [shared Google Drive](https://drive.google.com/drive/folders/1GIkjq4fwgwbiqVQxYwoJnOJWVobZ91pL). It will also download the wells meta data (coordinates, KB, WB...) for the [Norwegian Petroleum Directorate (NPD)](https://factpages.npd.no/en/wellbore/tableview/exploration/all).
+
+
+# References
+Bormann P., Aursand P., Dilib F., Dischington P., Manral S. 2020. FORCE Machine Learning Competition. https://github.com/bolgebrygg/Force-2020-Machine-Learning-competition
